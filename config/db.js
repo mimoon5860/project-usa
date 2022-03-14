@@ -1,4 +1,6 @@
 const mysql = require('mysql2')
+require('dotenv').config();
+
 
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
@@ -7,11 +9,12 @@ const pool = mysql.createPool({
     password: process.env.DB_PASSWORD
 })
 
-let sql = "SELECT * FROM users;"
 
-pool.execute(sql, (err, result) => {
-    if (err) throw err;
-    console.log(result);
-})
+// let sql = `SELECT * FROM users WHERE id=2;`
+
+// pool.execute(sql, (err, result) => {
+//     if (err) throw err;
+//     console.log(result);
+// })
 
 module.exports = pool.promise();
