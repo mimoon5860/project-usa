@@ -1,9 +1,16 @@
 const express = require('express');
+const multer = require('multer');
+const cors = require('cors');
+const userRoutes = require('./routes/user.routes');
+const adsRoutes = require('./routes/ads.routes');
+const upload = multer();
 const app = express();
+
+// Server port 
 const PORT = process.env.PORT || 4000;
-const userRoutes = require('./routes/users/user.routes');
-var multer = require('multer');
-var upload = multer();
+
+// cors middleware 
+app.use(cors());
 
 // for parsing application/json
 app.use(express.json());
@@ -15,17 +22,27 @@ app.use(express.urlencoded({ extended: true }));
 app.use(upload.array());
 app.use(express.static('public'));
 
-// User Api connected here
-app.use("/api/user", userRoutes);
 
+
+// Users All Api connected here
+app.use("/api/users", userRoutes);
+
+
+// Ads All api connected here
+app.use("/api/ads", adsRoutes);
+
+
+// Server running showing this api /
 app.get('/', (req, res) => {
     res.send('Project usa server is running');
 })
 
+// Wrong api handled here 
 app.use((req, res) => {
     res.send('Wrong api called');
 })
 
+// Server listening 
 app.listen(PORT, () => {
     console.log(`app is running at port ${PORT}`);
 })
