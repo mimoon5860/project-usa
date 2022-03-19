@@ -7,14 +7,8 @@ const pool = mysql.createPool({
     user: process.env.DB_USER,
     database: process.env.DB_NAME,
     password: process.env.DB_PASSWORD
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
 })
-
-
-// let sql = `SELECT * FROM users WHERE id=2;`
-
-// pool.execute(sql, (err, result) => {
-//     if (err) throw err;
-//     console.log(result);
-// })
-
 module.exports = pool.promise();

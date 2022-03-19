@@ -1,7 +1,5 @@
 const express = require('express');
-const pool = require('../../config/db');
 const router = express.Router();
-
 
 // get all users
 router.get('/all', (req, res) => {
@@ -15,14 +13,14 @@ router.get('/:id', (req, res) => {
 
 // create an user 
 router.post('/create-user', async (req, res) => {
-    const { email, name, date } = req.body;
-    try {
-        const sql = `select * from users`
+    console.log(req.body);
 
-        const result = await pool.execute(sql)
-    } catch (error) {
-        console.log(error)
-    }
+    // try {
+    //     const sql = `select * from users`
+    //     const result = await 
+    // } catch (error) {
+    //     console.log(error)
+    // }
 
     res.send('create new user route');
 })
