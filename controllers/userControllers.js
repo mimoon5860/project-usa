@@ -1,8 +1,15 @@
 const db = require('../models/db');
 
 exports.getAllUsers = (req, res) => {
+    const query = `SELECT name,email,country, phone, created_at AS starting_date FROM users`;
+    db.query(query, (err, rows, fields) => {
+        console.log(rows);
+        res.status(200).send({
+            success: true,
+            data: rows
 
-    res.send('get all users route');
+        })
+    })
 }
 exports.getSingleUser = (req, res) => {
     const id = req.params.id;
@@ -11,7 +18,7 @@ exports.getSingleUser = (req, res) => {
         db.query(query, (err, rows, fields) => {
             if (rows) {
                 res.status(200).send({
-                    status: 'success',
+                    success: true,
                     data: rows[0]
                 });
             } else {
