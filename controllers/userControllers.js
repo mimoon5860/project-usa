@@ -14,21 +14,21 @@ exports.getAllUsers = (req, res) => {
 
 exports.getSingleUser = (req, res) => {
     const id = req.params.id;
-    const query = `SELECT name,email,country, phone, created_at AS starting_date FROM users WHERE id=${id}`;
-    try {
-        db.query(query, (err, rows, fields) => {
-            if (rows) {
-                res.status(200).send({
-                    success: true,
-                    data: rows[0]
-                });
-            } else {
-                res.status(404).send("user id not found");
-            }
-        })
-    } catch (err) {
-        res.status(505).send("Something is wrong, try again");
-    }
+    const query = `SELECT name, email, country, phone, created_at AS starting_date, avatar AS img FROM users WHERE id=${id}`;
+    db.query(query, (err, rows, fields) => {
+        if (err) {
+            throw new Error(err.message);
+        }
+        if (rows) {
+            res.status(200).send({
+                success: true,
+                data: rows[0]
+            });
+        } else {
+            res.status(404).send("user id not found");
+        }
+    })
+
 
 }
 

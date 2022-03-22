@@ -3,7 +3,7 @@ const path = require('path')
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'photos/usersAvatars/');
+        cb(null, 'photos/adsPhotos/');
     },
     filename: (req, file, cb) => {
         const fileExt = path.extname(file.originalname);
@@ -29,6 +29,6 @@ const upload = multer({
 });
 
 
-const singleFile = upload.single('avatar');
+const multiFile = upload.array('photos', 6);
 
-module.exports = singleFile;
+module.exports = multiFile;
