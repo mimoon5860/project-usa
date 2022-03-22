@@ -1,14 +1,7 @@
-const db = require('../models/db');
+path = require('path');
 
 exports.getUserPhoto = (req, res) => {
     const avatar = req.params.avatar;
-
-    const filePath = `../usersAvatars/${avatar}`;
-
-    res.sendFile(filePath, (err, content) => {
-        res.end(content);
-    });
-    // console.log(filePath);
-
-
+    const file = path.join(__dirname, `../usersAvatars/${avatar}`);
+    res.sendFile(file);
 }

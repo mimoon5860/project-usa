@@ -4,7 +4,7 @@ const router = express.Router();
 
 
 // Get a single photo of an user router
-router.get('/user/:id', getUserPhoto);
+router.get('/user/:avatar', getUserPhoto);
 
 
 module.exports = router;
