@@ -40,7 +40,7 @@ exports.getSingleAd = (req, res) => {
     let adData = {};
     const query = `SELECT u_id AS user_id, title, location, details, name,sex,age,service,phone,service_for,specific_location,show_email,state,city,category,pics FROM ads WHERE id=${id}`;
 
-    const queryImg = `SELECT photo FROM ads_photo WHERE u_id=${id}`;
+    const queryImg = `SELECT photo FROM ads_photo WHERE ad_id=${id}`;
 
     db.query(query, (err, rows, fields) => {
         if (err) {
@@ -48,12 +48,15 @@ exports.getSingleAd = (req, res) => {
         }
         if (rows) {
             adData = rows[0];
+            db.query(queryImg, (err, rows, fields) => {
+                if (rows.length) {
+                    adData.photos = rows;
+                    res.status(200).send(adData);
+                }
+            })
         }
     })
 
-    db.query(queryImg, (err, rows, fields) => {
-        console.log(rows);
-    })
 
-    res.status(200).send(adData);
+
 }
