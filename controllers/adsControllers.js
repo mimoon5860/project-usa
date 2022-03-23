@@ -10,6 +10,8 @@ exports.createAd = (req, res) => {
 
     db.query(query, (err, rows, fields) => {
         if (err) {
+
+
             throw new Error(err.message);
         }
 
@@ -34,11 +36,12 @@ exports.createAd = (req, res) => {
 }
 
 
+
 // get single ad api 
 exports.getSingleAd = (req, res) => {
     const id = req.params.id;
     let adData = {};
-    const query = `SELECT u_id AS user_id, title, location, details, name,sex,age,service,phone,service_for,specific_location,show_email,state,city,category,pics FROM ads WHERE id=${id}`;
+    const query = `SELECT u_id AS user_id, title, location, details, name,sex,age,service,phone,service_for,specific_location,show_email,state,city,category FROM ads WHERE id=${id}`;
 
     const queryImg = `SELECT photo FROM ads_photo WHERE ad_id=${id}`;
 
@@ -56,7 +59,4 @@ exports.getSingleAd = (req, res) => {
             })
         }
     })
-
-
-
 }
