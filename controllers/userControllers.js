@@ -36,7 +36,7 @@ exports.getSingleUser = (req, res) => {
 
 
 exports.createUser = (req, res) => {
-    const { name, email, created_at, username, country, phone, state, city, post, address, password } = req.body;
+    const { name, email, created_at, username, country, phone, state, city, post, address, password } = req.body || {};
     const avatar = req.file;
 
     const query = `insert into users (email, name, created_at, username, balance, country, phone, status, state, city,avatar, password, post, address) values('${email}', '${name}','${created_at}','${username}', 0,'${country}', '${phone}', 'pending', '${state}', '${city}', '${avatar}', '${password}', ${post}, '${address}')`;
