@@ -3,11 +3,12 @@ const db = require('../models/db');
 exports.getAllUsers = (req, res) => {
     const query = `SELECT name,email,country, phone, created_at AS starting_date FROM users`;
     db.query(query, (err, rows, fields) => {
-        console.log(rows);
+        if (err) {
+            throw new Error(err.message);
+        }
         res.status(200).send({
             success: true,
             data: rows
-
         })
     })
 }
@@ -30,22 +31,19 @@ exports.getSingleUser = (req, res) => {
             res.status(404).send("user id not found");
         }
     })
-
-
 }
 
 
 exports.createUser = (req, res) => {
-    const { name, email, created_at, username, country, phone, state, city, post, address, password } = req.body || {};
+    const { name, email, created_at, country, phone, state, city, post, address } = req.body || {};
     const avatar = req.file;
 
-    const query = `insert into users (email, name, created_at, username, balance, country, phone, status, state, city,avatar, password, post, address) values('${email}', '${name}','${created_at}','${username}', 0,'${country}', '${phone}', 'pending', '${state}', '${city}', '${avatar}', '${password}', ${post}, '${address}')`;
+    const query = `insert into users (email, name, created_at, balance, country, phone, status, state, city,avatar, post, address) values('${email}', '${name}','${created_at}', 0,'${country}', '${phone}', 'pending', '${state}', '${city}', '${avatar}', ${post}, '${address}')`;
 
     try {
         db.query(query, (err, rows, fields) => {
             if (err) {
-                console.log(err);
-                res.status(404).send(err.sqlMessage);
+                throw new Error(err.message);
             }
             if (rows?.insertId) {
                 res.status(200).send({
