@@ -3,6 +3,7 @@ const cors = require('cors');
 const userRoutes = require('./routes/user.routes');
 const adsRoutes = require('./routes/ads.routes');
 const photosRoutes = require('./routes/photos.routes');
+const citiesRoutes = require('./routes/cities.routes');
 const multer = require('multer');
 const app = express();
 
@@ -24,20 +25,19 @@ app.use(express.static('public'));
 
 // Users All Api connected here
 app.use("/api/users", userRoutes);
-
-
 // Ads All api connected here
 app.use("/api/ads", adsRoutes);
-
-
 // Get photos api
 app.use("/api/photo", photosRoutes);
+app.use("/api/get/cities", citiesRoutes);
+
 
 
 // Server running showing this api /
 app.get('/', (req, res) => {
     res.send('Project usa server is running');
 })
+
 
 // Wrong api handled here 
 app.use((req, res) => {
